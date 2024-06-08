@@ -33,9 +33,9 @@ cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_SSL'] = True
-app.config['MAIL_USERNAME'] = 'a12587@universidad-une.com'  # Tu dirección de Gmail
-app.config['MAIL_PASSWORD'] = 'nwducguzwyznjhqb'  # Tu contraseña de Gmail
-app.config['MAIL_DEFAULT_SENDER']= 'a12587@universidad-une.com'  
+app.config['MAIL_USERNAME'] = ''  # Tu dirección de Gmail
+app.config['MAIL_PASSWORD'] = ''  # Tu contraseña de Gmail
+app.config['MAIL_DEFAULT_SENDER']= ''  
 
 mail = Mail(app)
 redireccionar=False
@@ -44,7 +44,7 @@ webCam=None
 
 
 def get_database_connection():
-    return mysql.connector.connect(host="localhost",user="root",passwd="",database="playeras")
+    return mysql.connector.connect(host="",user="",passwd="",database="")
 
 
 
