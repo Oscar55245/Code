@@ -1,0 +1,76 @@
+h2 {
+    font-size: 36px;
+    font-family: "SimSun", sans-serif;
+    margin-bottom: 20px;
+}
+p {
+    font-size: 18px;
+    font-family: "SimSun", sans-serif;
+    margin-bottom: 20px;
+}
+.producto {
+text-align: center;
+margin-bottom: 90px; /* Separación horizontal entre los componentes */
+margin-left: 10%; /* Separación horizontal entre los componentes */
+}
+#productos .producto {
+    position: relative;
+    margin-bottom: 90px; /* Ajusta el espacio vertical entre los productos */
+}
+.linea-horizontal {
+    position: absolute;
+    top:43%;
+    width: 50%;
+    height: 28px;
+    background-color: rgb(218, 33, 9);
+    bottom: 50%; /* Posiciona la línea en el centro vertical */
+    left: 25%; /* Alinea la línea a la izquierda */
+    z-index: -1; /* Hace que la línea esté detrás de todos los demás elementos */
+}
+
+
+/* Resto de tus estilos para .producto */
+.producto {
+    text-align: center;
+    margin-left: 10%; /* Ajusta la separación horizontal entre los componentes */
+}
+
+.producto img {
+    width: 150px;
+    background-color: white;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid #ccc;
+    transition: border-radius 0.3s ease, transform 0.3s ease;
+    filter: grayscale(100%);
+}
+.recibido {
+    text-align: center;
+    margin-left: 10%;
+}
+.recibido img {
+    width: 150px;
+    background-color: white;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid #ccc;
+    transition: border-radius 0.3s ease, transform 0.3s ease;
+}
+.producto p {
+    font-size: 30px;
+}
+.recibido p {
+    font-size: 30px;
+}
+
+
+.tamano{
+    width: 1000px;
+    height: 600px;
+    align-items: center;
+    border-radius: 20%;
+    
+} .texto{
+    font-size: 32px;
+    text-align: center;
+}

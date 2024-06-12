@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Empleados</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='fontawesome/css/all.min.css')}}"> <!-- https://fontawesome.com/ -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet" /> <!-- https://fonts.google.com/ -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/tooplate-wave-cafe.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/carrito.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/empleados.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/besticons.css')}}">
+</head>
+<body style="background-image: url('/static/img/fondo.jpg'); background-size: cover; background-repeat: no-repeat; background-attachment: fixed;">
+    <div class="toolbar">
+        <div class="logo">Logo</div>
+        <ul class="menu">
+            <li><a href="/empleado"><i class="coor-icon fas fa-home"></i> Inicio</a></li>
+            <li><a href="/Ingresar_playeras"><i class="coor-icon fas fa-arrow-left oor-icon"></i> Atras</a></li>
+            <li><a href="/"><i class="coor-icon fas fa-sign-out-alt oor-icon"></i> Salir</a></li>
+        </ul>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Imagen</th>
+                <th>Estado</th>
+                <th>Baja</th>
+                <th>Activar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if tabla is defined and not tabla.empty %}
+                {% for index, row in tabla.iterrows() %}
+                    <tr>
+                        <td>{{ row['dise'] }}</td>
+                        <td>{{ row['precio'] }}</td>
+                        <td><img src="{{ row['url'] }}" data-dise="{{row['dise']}}" width="100" height="100"></td>
+                        <td> {{ row['status'] }}</td>
+                        <td><button class="activar-btn" data-dise="{{row['dise']}}" >ACTIVAR</button></td>
+                        <td><button class="eliminar-button" data-dise="{{row['dise']}}" onclick="bajaStatus(this)"><i class="fas fa-trash"></i> BAJA</button></td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="5">No data available</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>        
+      <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="detallePedido"></div>
+        </div>
+    </div>
+</body>
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+    }
+    .modal-content {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+    }
+
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".ver-detalle").click(function () {
+            var pedidoString = $(this).data("pedido");
+            showDetailsModal(pedidoString);
+        });
+    });
+
+    function showDetailsModal(pedidoString) {
+        var detalles = [];
+        var items = pedidoString.split("|");
+        for (var i = 0; i < items.length; i++) {
+            var detalle = items[i].split(",");
+            detalles.push(detalle.join(", "));
+        }
+
+        var mensaje = detalles.join("<br>");
+        $("#detallePedido").html(mensaje);
+        $("#myModal").css("display", "flex");
+    }
+
+    function closeModal() {
+        $("#myModal").css("display", "none");
+    }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.activar-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                activar(btn);
+            });
+        });
+    });
+    function bajaStatus(btn){
+        baja(btn);
+    }
+    function baja(button) {
+        var diseValue = button.getAttribute('data-dise');
+        enviarDatosAlServidor(diseValue, 'BAJA');
+    }
+    function activar(button) {
+        var diseValue = button.getAttribute('data-dise');
+        enviarDatosAlServidor(diseValue, 'DISPONIBLE');
+    }
+    function enviarDatosAlServidor(diseValue, statusValue) {
+    fetch('/actualizar-status', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+            'dise': diseValue,
+            'status': statusValue,
+        }),
+    }).then(response => {
+        // Manejar la respuesta del servidor si es necesario
+        console.log(response);
+        // Redirigir a la misma página
+        window.location.reload(true); // Esto recargará la página
+    }).catch(error => {
+        console.error('Error al enviar datos:', error);
+    });
+}
+
+</script>
+</html>

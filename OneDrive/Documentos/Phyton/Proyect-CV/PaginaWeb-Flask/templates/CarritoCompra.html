@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+    <title> Carrito de compra | </title>
+    <link rel="stylesheet" href="{{url_for('static', filename='fontawesome/css/all.min.css')}}">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet" />
+    <link rel="stylesheet" href="{{url_for('static', filename='css/tooplate-wave-cafe.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/carrito.css')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/animate.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/icomoon.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/besticons.css')}}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/owl.carousel.min.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/owl.theme.default.min.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+.logo {
+    width: 50px; /* Cambia el tamaño según sea necesario */
+    height: 50px; /* Cambia el tamaño según sea necesario */
+    border-radius: 50%; /* Esto hace que el div tenga forma de círculo */
+    overflow: hidden; /* Oculta cualquier parte de la imagen que sobresalga del círculo */
+}
+
+.logo img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.pagar-button {
+    padding: 10px 80px;
+    font-size:26px;
+    background-color:#363738; /* Color de fondo del botón */
+    color: #fff; /* Color del texto del botón */
+    border: none;
+    width:110%;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.pagar-button:hover {
+    background-color: rgb(91, 231, 152); /* Cambia el color de fondo al pasar el mouse sobre el botón */
+}
+.pagar-button i {
+    margin-right: 2%; /* Espaciado entre el icono y el texto del botón */
+}
+.div-form{
+    margin-left: 5%;
+}
+.total-input {
+
+        background-color: #fff;
+        color: #000;
+        cursor: text;
+
+    }
+.etiqueta1{
+    margin-left:20%;
+}
+</style>
+<link rel="shortcut icon" href="https://oscarestudiante2211.pythonanywhere.com/shiva.PNG" type="image/x-icon">
+<body style="background-image: url('https://oscarestudiante2211.pythonanywhere.com//fondo2.jpg'); background-size: cover; background-repeat: no-repeat; background-attachment: fixed;">
+    <div class="toolbar">
+        <div class="logo">
+    <a href="/home?ID={{ID}}">
+        <img src="https://oscarestudiante2211.pythonanywhere.com/shiva.PNG" alt="Logo">
+    </a>
+        </div>
+        <ul class="menu">
+            <li><a href="/pedido?ID={{ID}}"><i class="coor-icon fa fa-truck"></i> Pedidos</a></li>
+            <li><a href="/like-shirt-page?ID={{ID}}"><i class="coor-icon fa fa-heart" aria-hidden="true"></i></a></li>
+            <li><a href="/home?ID={{ID}}"><i class="coor-icon fas fa-home"></i> Inicio</a></li>
+            <li><a href="/" id="logoutButton"><i class="fas fa-sign-out-alt coor-icon"></i> Salir</a></li>
+        </ul>
+    </div>
+
+    <br>
+    <div style="margin-left:7%;" class="row">
+        <div class="col-md-5">
+            <h2> Carrito de compra</h2>
+        </div>
+        <div style="margin-left:6%;"  class="col-md-3">
+            <h2>Pagar</h2>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="tablaContainer">
+                <table id="miTabla">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Medida</th>
+                    <th>Cantidad</th>
+                    <th>Imagen</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if tabla is defined and not tabla.empty %}
+                    {% for index, row in tabla.iterrows() %}
+                        <tr>
+                            <td>{{ row['nombre'] }}</td>
+                            <td>{{ row['precio'] }}</td>
+                            <td>{{ row['medida'] }}</td>
+                            <td>
+                                <div class="spinner">
+                                    <button class="decrement" onclick="decrementQuantity(this)">-</button>
+                                    <input style="width:40%;" type="text" class="quantity" value="1" readonly>
+                                    <button class="increment" onclick="incrementQuantity(this)">+</button>
+                                </div>
+                            </td>
+                            <td><img src="https://oscarestudiante2211.pythonanywhere.com/{{ row['img'] }}" alt="{{ row['nombre'] }}" width="100" height="100"></td>
+                            <td>
+                                <button class="eliminar-button" onclick="eliminarFila(this)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="5">No data available</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+        </div>
+        <form id="form-pedido" action="/insertar-compra" method="POST" enctype="application/x-www-form-urlencoded">
+            <div class="div-form" >
+                <input style="display: none;" id="ID" name="ID" value="{{ID}}">
+                <input  onfocus="clearDefaultValue('usuario')" name="usuario" type="text" id="usuario" minlength="5" maxlength="10"  value="Nombre" required><br>
+                <input   onfocus="clearDefaultValue('email')" name="email" type="text" id="email" minlength="5" maxlength="30"  value="email" required><br>
+                <input  onfocus="clearDefaultValue('domicilio')" name="domicilio" type="text" id="domicilio" minlength="5" maxlength="20"   value="Domicilio" required>
+                <input  onfocus="clearDefaultValue('municipio')" name="municipio" type="text" id="municipio" minlength="5" maxlength="20"   value="Municipio" required>
+                <input   onfocus="clearDefaultValue('postal')" name="postal" type="text" id="postal"  maxlength="5"  value="Código Postal" required><br>
+                Total : <input name="total"  type="text" id="total"  class="total-input"  readonly>
+                <button type="button" onclick="enviarPedido()" id="button-pagar" class="pagar-button">
+                   <i class="fas fa-dollar-sign"></i> Realizar pedido
+                </button>
+            </div>
+        </form>
+
+</div>
+<div style="margin-left:10%;" class="row">
+    <div class="col-md-3">
+        <p id="cantidadProductos">Productos : </p>
+    </div>
+</div>
+
+      <div id="mensaje-exito" style="display: none;" class="success-message">
+        ¡Pedido realizado!
+        </div>
+        <div id="mensaje-doble" style="display: none;" class="red-message">
+         ¡Campos vacios!
+        </div>
+</body>
+</div>
+</html>
+<script src="{{url_for('static', filename='js/jquery-3.4.1.min.js')}}"></script>
+  <script src="{{url_for('static', filename='js/Pantalla.js')}}"></script>
+<script>
+
+document.getElementById("logoutButton").addEventListener("click", function() {
+    localStorage.removeItem("listaElementos");
+    window.location.href = "/";
+});
+function clearDefaultValue(fieldId) {
+  var inputElement = document.getElementById(fieldId);
+  if (inputElement.value === inputElement.defaultValue) {
+    inputElement.value = "";
+  }
+}
+function calcularTotal() {
+        var total = 0;
+        var cantidadProductos=0;
+        var cantidadInputs = document.querySelectorAll('.quantity');
+        var precioValores = document.querySelectorAll('td:nth-child(2)'); // Obtener los valores de precio
+        for (var i = 0; i < cantidadInputs.length; i++) {
+            var cantidad = parseInt(cantidadInputs[i].value);
+            var precio = parseInt(precioValores[i].textContent);
+            cantidadProductos=cantidadProductos+parseInt(cantidadInputs[i].value);
+            total += cantidad * precio;
+        }
+        console.log(cantidadProductos);
+        document.getElementById('total').value =''+ total;
+        document.getElementById('cantidadProductos').textContent = 'Productos[ ' + cantidadProductos+']';
+    }
+    calcularTotal();
+    function incrementQuantity(button) {
+        const spinner = button.parentElement;
+        const input = spinner.querySelector('.quantity');
+        let value = parseInt(input.value);
+        if (value < 10) {
+        value += 1;
+        input.value = value;
+    }
+        calcularTotal()
+    }
+    function decrementQuantity(button) {
+        const spinner = button.parentElement;
+        const input = spinner.querySelector('.quantity');
+        let value = parseInt(input.value);
+        if (value > 1) {
+            value -= 1;
+            input.value = value;
+        }
+
+        calcularTotal()
+    }
+    function eliminarFila(button) {
+        var listaGuardada = localStorage.getItem("listaElementos");
+
+        var row = button.closest('tr');
+        var nombre = row.querySelector('td:first-child').textContent;
+        var medida =  row.querySelector('td:nth-child(3)').textContent;
+        console.log(medida);
+   if (listaGuardada) {
+        var listaElementos = JSON.parse(listaGuardada);
+        console.log(listaElementos);
+        var index = -1;
+            for (var i = 0; i < listaElementos.length; i++) {
+        if (listaElementos[i].medida == medida && listaElementos[i].url == nombre) {
+            index = i;
+            console.log(listaElementos[i].url)
+        }
+
+    }
+    if (index !== -1) {
+            listaElementos.splice(index, 1);
+        }
+        localStorage.setItem("listaElementos", JSON.stringify(listaElementos));
+    }
+       console.log("lista guardada" + listaElementos);
+       var listaJSON = encodeURIComponent(JSON.stringify(listaElementos));
+       var nuevaURL = '/carrito?lista='+listaJSON+'&ID={{ID}}';
+       window.location.href = nuevaURL;
+       calcularTotal()
+    }
+</script>
+<script>
+   function enviarPedido() {
+    var usuarioInput = document.getElementById('usuario');
+    var domicilioInput = document.getElementById('domicilio');
+    var postalInput = document.getElementById('postal');
+    var email = document.getElementById('email');
+    var totalInput = document.getElementById('total');
+    if (
+        usuarioInput.value.trim() === '' || usuarioInput.value === 'Nombre' ||
+        domicilioInput.value.trim() === '' || domicilioInput.value === 'Domicilio' ||
+        postalInput.value.trim() === '' || postalInput.value === 'Código Postal'|| email.value === 'email'
+    ) {
+        var mensajeDoble = document.getElementById("mensaje-doble");
+      mensajeDoble.style.display = "block";
+      setTimeout(function() {
+        mensajeDoble.style.display = "none";
+      }, 3000);
+    } else {
+    // Obtener la información de la tabla y agregarla al formulario
+    var filas = document.querySelectorAll('tbody tr');
+    var formulario = document.getElementById('form-pedido');
+
+    // Limpiar campos ocultos existentes
+    var camposOcultos = document.querySelectorAll('input[type="hidden"]');
+    camposOcultos.forEach(function (campo) {
+        campo.remove();
+    });
+
+    filas.forEach(function (fila) {
+        var nombre = fila.querySelector('td:nth-child(1)').innerText;
+        var precio = fila.querySelector('td:nth-child(2)').innerText;
+        var medida = fila.querySelector('td:nth-child(3)').innerText;
+        console.log(medida);
+        var cantidad = fila.querySelector('.quantity').value;
+        var inputNombre = document.createElement('input');
+        inputNombre.type = 'hidden';
+        inputNombre.name = 'nombres';
+        inputNombre.value = nombre;
+
+        var inputPrecio = document.createElement('input');
+        inputPrecio.type = 'hidden';
+        inputPrecio.name = 'precios';
+        inputPrecio.value = precio;
+
+        var inputCantidad = document.createElement('input');
+        inputCantidad.type = 'hidden';
+        inputCantidad.name = 'cantidades';
+        inputCantidad.value = cantidad;
+
+        var inputMedida = document.createElement('input');
+        inputMedida.type = 'hidden';
+        inputMedida.name = 'medida';
+        inputMedida.value = medida;
+
+        formulario.appendChild(inputNombre);
+        formulario.appendChild(inputMedida);
+        formulario.appendChild(inputPrecio);
+        formulario.appendChild(inputCantidad);
+    });
+    mensajeExito = document.getElementById("mensaje-exito");
+    mensajeExito.style.display="block";
+    setTimeout(function() {
+          mensajeExito.style.display = "none";
+      }, 3000);
+    localStorage.removeItem("listaElementos");
+    formulario.submit();
+}
+}
+</script>

@@ -1,0 +1,3 @@
+Hola|4
+write
+Mundo|3

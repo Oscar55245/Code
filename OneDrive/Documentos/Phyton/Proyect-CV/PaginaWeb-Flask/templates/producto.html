@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html class="no-js">
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>PAGINA DE ROPA &mdash; Oscar Sartana</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+
+	
+	
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="{{url_for('static', filename='css/animate.css')}}">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="{{url_for('static', filename='css/icomoon.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/besticons.css')}}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.css')}}">
+	<!-- Owl Carousel -->
+	<link rel="stylesheet" href="{{url_for('static', filename='css/owl.carousel.min.css')}}">
+
+	<link rel="stylesheet" href="{{url_for('static', filename='css/owl.theme.default.min.css')}}">
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+	
+	<!-- Modernizr JS -->
+	<script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+	<link rel="stylesheet" href="{{url_for('static', filename='css/carrito.css')}}">
+	</head>
+	<body>
+		<div class="toolbar">
+			<div class="logo">Logo</div>
+			<ul class="menu">
+				<li><a id="puntos" href="#">Puntos :{{puntos}}</a></li>
+				<li><a href="/camara"><i class="coor-icon fas fa-home"></i> Inicio</a></li>
+				<li><a id="logoutButton"><i class="fas fa-sign-out-alt coor-icon"></i> Salir</a></li>
+			</ul>
+		</div>
+	<div id="fh5co-page">
+		<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
+		<style>
+#imagen-dinamica {
+    display: block;
+    margin: 0 auto;
+    width: 300px; /* Cambia este valor según tus necesidades */
+    height: 200px; /* Cambia este valor según tus necesidades */
+    border-radius: 15px;
+    box-shadow: 0px 0px 30px;
+    text-align: center;
+    overflow: hidden; /* Oculta partes de imágenes más grandes que el tamaño fijado */
+}
+.green {
+    background-color: green;
+}
+.grey {
+    background-color: grey;
+}
+.box{
+	margin-right: 35%;
+}
+#spinnerButton button {
+    margin-right: 10px; /* Ajusta el margen derecho entre los botones */
+}
+p {
+    margin-bottom: 10px; /* Ajusta el margen inferior entre los elementos */
+}
+#name {
+    margin-top: 20px; /* Ajusta el margen inferior entre los elementos */
+}
+.producto {
+    margin-top: 20px; /* Ajusta el margen superior entre el icono del carrito y los botones */
+}
+.producto{
+			width: 40%;
+			margin-left: 10%;
+}
+		</style>
+		<div id="mensaje-exito" style="display: none;" class="success-message">
+			¡La playera se agregó con éxito a tu carrito!
+		  </div>
+		  <div id="mensaje-doble" style="display: none;" class="red-message">
+			Articulo existente en tu carrito O selecciona una medida
+		  </div>
+		<div id="fh5co-main">
+			<a href="/carrito" id="carrito">
+				<div class="floating-icon fas fa-shopping-cart"></div>
+			  </a>
+			<div class="fh5co-narrow-content box">
+				<div class="row box">
+					<img  id="imagen-dinamica" src="" alt="Free HTML5 Bootstrap">
+					
+					<div class="col-md-8 col-md-offset-2 animate-box " data-animate-effect="fadeInLeft">
+						
+						<div class="col-md-9 col-md-push-3">
+							<h1 id="name">{{valor}}</h1>
+							<p> Material: {{material}}</p>
+							<p> Diseñador : {{diseñador}}</p>
+							<p> Precio : $ {{precio}}</p>
+                                <div id="spinnerButton">
+                                    <button id='CH' class="decrement" onclick="changeColor(this)">CH</button>
+                                    <button id='MD' class="decrement" onclick="changeColor(this)">MD</button>
+                                    <button id='GD' class="increment" onclick="changeColor(this)">GD</button>
+                                </div>
+							<div class="tm-cart-icon producto" id="agregar">
+								<i class="fas fa-plus-circle "></i> 
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script>
+var url = new URL(window.location.href);
+var params = new URLSearchParams(url.search);
+// Obtiene el valor del parámetro 'imagen'
+var imagen = params.get('imagen');
+var imgElement = document.getElementById("imagen-dinamica");
+imgElement.src = imagen;
+console.log(imagen);
+</script>
+<script>
+function changeColor(button) {
+    var spinnerDiv = document.getElementById('spinnerButton');
+    var buttons = spinnerDiv.querySelectorAll('button');
+    var buttonid=button.id
+	button.classList.remove('grey');
+    console.log('Botno seleccionado'+buttonid)
+    buttons.forEach(function(bttn) {
+        if(button.id!=bttn.id){
+			bttn.classList.remove('green');
+            bttn.classList.add('grey');
+        }
+    });
+    button.classList.add('green');
+}
+	// Obtener la lista guardada de localStorage
+var listaGuardada = localStorage.getItem("listaElementos");
+var listaElementos = [];
+
+// Si hay una lista guardada, cargarla en el arreglo listaElementos
+if (listaGuardada) {
+  listaElementos = JSON.parse(listaGuardada);
+  console.log("Lista guardada: " + listaElementos);
+}
+
+// Seleccionar el elemento p
+var icono = document.getElementById("agregar");
+var verde= false;
+icono.addEventListener("click", function () {
+	var spinnerDiv = document.getElementById('spinnerButton');
+    var buttons = spinnerDiv.querySelectorAll('button');
+    buttons.forEach(function(bttn) {
+        if(bttn.classList.contains('green')){
+            textoBoton = bttn.id;
+            console.log(textoBoton);
+			verde= true;
+        }
+	})
+  var valor = document.getElementById("name").textContent;
+  if (elementoExiste(textoBoton, valor)||verde!=true ) {
+        var mensajeDoble = document.getElementById("mensaje-doble");
+        mensajeDoble.style.display = "block";
+        console.log("Elemento en la lista");
+
+      } else {
+        console.log("Elemento no se encuentra");
+            var nuevoElemento = {
+        url: valor,
+        medida: textoBoton
+
+            };
+
+        listaElementos.push(nuevoElemento);
+        localStorage.setItem("listaElementos", JSON.stringify(listaElementos));
+        console.log(listaElementos);
+        var mensajeExito = document.getElementById("mensaje-exito");
+        mensajeExito.style.display = "block";
+      }
+      setTimeout(function() {
+        mensajeExito.style.display = "none";
+      }, 3000);
+	  setTimeout(function() {
+        mensajeDoble.style.display = "none";
+      }, 3000);
+    });
+
+	document.getElementById("logoutButton").addEventListener("click", function() {
+    // Borrar el elemento del localStorage
+    localStorage.removeItem("listaElementos");
+
+    // Redirigir a la página principal
+    window.location.href = "/";
+});
+function elementoExiste(medida, url) {
+    for (var i = 0; i < listaElementos.length; i++) {
+        if (listaElementos[i].medida == medida && listaElementos[i].url == url) {
+            console.log('elemento en la list')
+             return true;
+        }
+    }
+    console.log('elemento no ')
+    return false; // El elemento no existe en la lista
+}
+  </script>
+	</body>
+</html>
+

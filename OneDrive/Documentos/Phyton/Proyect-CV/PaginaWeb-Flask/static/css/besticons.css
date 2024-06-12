@@ -1,0 +1,76 @@
+.tm-cart-icon {
+    text-align: center; /* Centra el contenido horizontalmente */
+    margin-top: 35px;
+    top: -30px; /* Ajusta la posición vertical según sea necesario */
+    right: 10px; /* Ajusta la posición horizontal según sea necesario */
+    background-color: #000000; /* Cambia el color de fondo del icono si es necesario */
+    color: #ffffff; /* Cambia el color del icono si es necesario */
+    padding: 5px 10px; /* Añade espaciado interno al icono si es necesario */
+    border-radius: 50%; /* Hace que el icono tenga forma de círculo si es necesario */
+    }
+    .tm-add-icon {
+    text-align: center; /* Centra el contenido horizontalmente */
+    margin-top: 35px;
+    top: -30px; /* Ajusta la posición vertical según sea necesario */
+    right: 10px; /* Ajusta la posición horizontal según sea necesario */
+    background-color: #fffafa; /* Cambia el color de fondo del icono si es necesario */
+    color: #000000; /* Cambia el color del icono si es necesario */
+    padding: 5px 10px; /* Añade espaciado interno al icono si es necesario */
+    border-radius: 50%; /* Hace que el icono tenga forma de círculo si es necesario */
+    }
+    .success-message {
+        background-color: #4CAF50; /* Color de fondo verde */
+color: white; /* Color de texto blanco */
+text-align: center; /* Texto centrado */
+padding: 10px; /* Espaciado interno */
+position: fixed; /* Posición fija */
+top: 0; /* Colocar en la parte superior */
+left: 0; /* Colocar en la parte izquierda */
+right: 0; /* Colocar en la parte derecha */
+width: 100%; /* Ancho del 100% para abarcar toda la página */
+z-index: 1000; /* Z-index alto para estar encima de otros elementos */
+}
+.red-message {
+    background-color: #f10707; /* Color de fondo verde */
+color: white; /* Color de texto blanco */
+text-align: center; /* Texto centrado */
+padding: 14px; /* Espaciado interno */
+position: fixed; /* Posición fija */
+top: 0; /* Colocar en la parte superior */
+left: 0; /* Colocar en la parte izquierda */
+right: 0; /* Colocar en la parte derecha */
+width: 100%; /* Ancho del 100% para abarcar toda la página */
+z-index: 1000; /* Z-index alto para estar encima de otros elementos */
+}
+.floating-icon {
+    width: 50px;
+    height: 50px;
+    background-color: #363738; /* Color de fondo del icono */
+    color: #099; /* Color del icono */
+    border-radius: 50%; /* Hace que el icono sea redondo */
+    text-align: center;
+    line-height: 50px;
+    position: fixed; /* Fija la posición del icono */
+    top: 50%; /* Posiciona en la mitad de la pantalla verticalmente */
+    right: 20px; /* Distancia desde la izquierda */
+    margin-top: -25px; /* Centra verticalmente el icono */
+    cursor: pointer;
+    z-index: 999; /* Asegura que el icono esté en la parte superior */
+}
+.coor-icon{
+    color: #099;
+    font-size: 20px;
+}
+.camara-icon{
+    color: #099;
+    font-size: 40px;
+    margin-top: 50px; 
+    display: none;
+}
+.tm-page-nav-item i {
+    font-size: 24px; /* Tamaño del ícono */
+    color: #099; /* Color del ícono (en este caso, naranja) */
+    margin-left: 10px; /* Margen a la izquierda del ícono para separarlo del título */
+}
+  
+  

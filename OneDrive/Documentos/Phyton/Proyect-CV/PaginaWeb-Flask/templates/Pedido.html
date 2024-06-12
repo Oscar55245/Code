@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis pedidos</title>
+    <!-- Enlace al CSS de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="{{url_for('static', filename='css/animate.css')}}">
+<!-- Icomoon Icon Fonts-->
+<link rel="stylesheet" href="{{url_for('static', filename='css/icomoon.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/besticons.css')}}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<!-- Bootstrap  -->
+<link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.css')}}">
+<!-- Owl Carousel -->
+<link rel="stylesheet" href="{{url_for('static', filename='css/owl.carousel.min.css')}}">
+
+<link rel="stylesheet" href="{{url_for('static', filename='css/owl.theme.default.min.css')}}">
+<!-- Theme style  -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/carrito.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/pedido.css')}}">
+    <style>
+
+    </style>
+</head>
+<body  style="background-image: url('https://oscarestudiante2211.pythonanywhere.com//fondo2.jpg'); background-size: cover; background-repeat: no-repeat; background-attachment: fixed;">
+    <div class="toolbar">
+        <div class="logo">Logo</div>
+        <ul class="menu">
+            <li><a href="/pedido"><i class="coor-icon fa fa-truck"></i> Pedidos</a></li>
+            <li><a href="/camara"><i class="coor-icon fas fa-home"></i> Inicio</a></li>
+            <li><a href="/"><i class="fas fa-sign-out-alt coor-icon"></i> Salir</a></li>
+        </ul>
+    </div>
+    <h2>Codigo de pedido</h2>
+<input id="Buscar" type="text" onkeypress="handleKeyPress(event)"> <button onclick="enviarDatos()"><i class="coor-icon fas fa-search "></i></button>
+<div style="overflow-x: auto; width: 1030px; overflow-y:  auto; max-height:150px;">
+    <table style="width: 1000px;"><!-- Aquí especifica el ancho deseado -->
+        <thead>
+            <tr>
+                <th>Playera</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if tabla is defined and not tabla.empty %}
+                {% for index, row in tabla.iterrows() %}
+                    <tr>
+                        <td>{{ row['playera'] }}</td>
+                        <td>${{ row['precio'] }}</td>
+                        <td>{{ row['cantidad'] }}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="5">No data available</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+    <div  class="container-fluid mt-5">
+        <div style="position: sticky; top: 10%;" class="row justify-content-center mt-7" id="productos">
+            <div class="col-12 text-center mb-4">
+                <h2>Pedidos</h2>
+            </div>
+            <div class="linea-horizontal"></div>
+            <!-- Producto 1 -->
+            {% if estatus[0] == 'PENDIENTE' or estatus[0]=='ENVIADO' or estatus[0]=='COMPLETADO' %}
+            <div class="col-lg-3 col-md-6">
+                <div   class=" recibido">
+                    <img  src="https://oscarestudiante2211.pythonanywhere.com/pedidoRecibido.png" alt="Ing. Industrial">
+                    <p>Pedido Recibido</p>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-lg-3 col-md-6">
+                <div   class=" producto">
+                    <img  src="https://oscarestudiante2211.pythonanywhere.com/pedidoRecibido.png" alt="Ing. Industrial">
+                    <p>Pedido Recibido</p>
+                </div>
+            </div>
+            {% endif %}
+            <!-- Producto 3 -->
+            {% if estatus[0]=='ENVIADO' or estatus[0]=='COMPLETADO' %}
+            <div class="col-lg-3 col-md-6">
+                <div  class="recibido">
+                    <img src="https://oscarestudiante2211.pythonanywhere.com/PedidoEnviado.png" alt="Ing. Industrial">
+                    <p>Pedido enviado</p>
+                </div>
+            </div>
+            <style>
+                .linea-horizontal {
+                    background-color: rgb(228, 164, 46);
+                }
+            </style>
+            {% else%}
+            <div class="col-lg-3 col-md-6">
+                <div  class=" producto">
+                    <img src="https://oscarestudiante2211.pythonanywhere.com/PedidoEnviado.png" alt="Ing. Industrial">
+                    <p>Pedido enviado</p>
+                </div>
+            </div>
+            {% endif %}
+            <!-- Producto 4 -->
+            {% if estatus[0]=='COMPLETADO' %}
+            <div class="col-lg-3 col-md-6">
+                <div class="recibido">
+                    <img src="https://oscarestudiante2211.pythonanywhere.com/PedidoEntregado.png" alt="Ing. Química">
+                    <p> Pedido entregado </p>
+                </div>
+            </div>
+            <style>
+                .linea-horizontal {
+                    background-color: rgb(247, 242, 242);
+                }
+            </style>
+            {% else%}
+            <div class="col-lg-3 col-md-6">
+                <div  class=" producto">
+                    <img src="https://oscarestudiante2211.pythonanywhere.com/PedidoEntregado.png" alt="Ing. Industrial">
+                    <p>Pedido enviado</p>
+                </div>
+            </div>
+            {% endif %}
+            
+        </div>
+    </div>
+
+  
+
+   
+    <!-- Enlaces a jQuery y Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   <script>
+        function handleKeyPress(event) {
+        if (event.keyCode === 13) { // Verificar si la tecla presionada es "Enter"
+            event.preventDefault(); // Evitar que se envíe el formulario (si hay uno)
+            enviarDatos(); // Llamar a la función enviarDatos()
+        }
+    }
+function enviarDatos() {
+    var texto = document.getElementById("Buscar").value;
+    window.location.href = '/pedido_cliente?ID=' + encodeURIComponent(texto);
+}
+   </script>
+
+</body>
+</html>

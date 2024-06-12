@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CambioFondo | Cámara</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="{{url_for('static', filename='fontawesome/css/all.min.css')}}">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet" />
+    <link rel="stylesheet" href="{{url_for('static', filename='css/tooplate-wave-cafe.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/besticons.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/carrito.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/camara2.css')}}">
+</head>
+<body>
+  <div class="toolbar">
+    <div class="logo">Logo</div>
+    <li><a  href="#">Bienvenido {{nombre}}</a></li>
+    <ul class="menu">
+        <li><a href="#">Puntos : {{puntos}}</a></li>
+        <li>
+            <div class="custom-select">
+                <div class="select-selected">Categorias</div>
+                <div class="select-options">
+                  <div class="select-option">Inicio</div>
+                  <div class="select-option">Deportivas</div>
+                  <div class="select-option">Casuales</div>
+                </div>
+              </div>
+        </li>
+        <li><a href="/like-shirt-page"><i class="coor-icon fa fa-heart" aria-hidden="true"></i></a></li>
+        <li><a href="/pedido"><i class="coor-icon fa fa-truck"></i> Pedidos</a></li>
+        <li><a href="/camara"><i class="coor-icon fas fa-home"></i> Inicio</a></li>
+        <li><a id="logoutButton"><i class="fas fa-sign-out-alt coor-icon"></i> Salir</a></li>
+    </ul>
+</div>
+
+
+<div class="tm-container main-content">
+  <div class="tm-row">
+      <div class="tm-list-item">
+      </div>
+  </div>
+  <div id="image-container">
+    <div class="image-grid">
+        <!-- Las imágenes se agregan dinámicamente aquí -->
+    </div>
+</div>
+<a href="/carrito" id="carrito">
+    <div class="floating-ic fas fa-shopping-cart"></div>
+  </a>
+</div>
+<footer class="tm-site-footer">
+    <p class="tm-black-bg tm-footer-text">Eleccion informada</p>
+</footer>
+  </div>
+  <div class="tm-video-wrapper">
+    <i id="tm-video-control-button" class="fas fa-pause"></i>
+    <video autoplay muted loop id="tm-video">
+      <source src="{{url_for('static', filename='video/nubes3.mp4')}}" type="video/mp4">
+    </video>
+  </div>
+</div>
+  <script src="{{url_for('static', filename='js/jquery-3.4.1.min.js')}}"></script>
+  <script src="{{url_for('static', filename='js/Pantalla.js')}}"></script>
+  <!-- Recibir y actualizar los datos -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js"></script>
+  <script>
+   // const imageNames= JSON.parse('{{ imagen_urls | tojson | safe }}');
+
+    const select = document.getElementById('opciones');
+    console.log(select)
+    let enlac = "https://oscarestudiante2211.pythonanywhere.com//";
+    let imageNames = JSON.parse('{{ imagen_urls | tojson | safe }}');
+    console.log(imageNames)
+    imagenes();
+    select.addEventListener('change', function() {
+        const opcionSeleccionada = select.value;
+     console.log(opcionSeleccionada);
+    if (opcionSeleccionada == 0) {
+        enlac = "https://oscarestudiante2211.pythonanywhere.com//";
+        imageNames = JSON.parse('{{ imagen_urls | tojson | safe }}');
+        imagenes();
+    } else if (opcionSeleccionada =='opcion2') {
+         enlac = "https://oscarestudiante2211.pythonanywhere.com/deportiva";
+        imageNames = ['img10.jpg', 'img12.jpg', 'img13.jpg', 'img17.jpg','img18.jpg','img9.jpg'];
+        imagenes();
+    }
+    else if (opcionSeleccionada =='opcion3') {
+         enlac = "https://oscarestudiante2211.pythonanywhere.com/casual";
+        imageNames = ['img16.jpg', 'img19.jpg', 'img3.jpg', 'img4.jpg','img5.jpg','img7.jpg'];
+        imagenes();
+    }
+        });
+
+    function imagenes(){
+    const imageUrls = imageNames.map(imageName => enlac + imageName);
+    console.log(window.location.href); 
+    const url = new URL(window.location.href);
+// Obtiene la lista de valores del parámetro "imagen_urls"
+const listaImagenes = url.searchParams.getAll("imagen_urls");
+    const imageContainer = document.getElementById('image-container');
+    loadChange(imageUrls, imageContainer);
+    socket.on('valor_actualizado', function(data) {
+      const imageContainer = document.getElementById('image-container');
+      etiqueta5.textContent = locacion;
+      loadChange(imagenes, imageContainer);
+    });
+    }
+
+   
+
+// Mostrar imágenes recomendadas en el contenedor
+function loadChange(imageUrls, imageContainer) {
+    const imageGrid = imageContainer.querySelector('.image-grid');
+    imageGrid.innerHTML = ''; // Limpia las imágenes anteriores
+
+    imageUrls.forEach((imageUrl) => {
+        const imgContainer = document.createElement('div');
+        imgContainer.classList.add('resizable-image');
+        const img = document.createElement('img');
+        img.src = imageUrl;
+        const link = document.createElement('a');
+        link.href = '/producto-info?imagen='+imageUrl;
+        link.appendChild(img);
+        const label = document.createElement('p');
+        label.id = 'nombreEtiqueta';
+        const label2 = document.createElement('p'); 
+        label2.id = 'precioEtiqueta'; // Agregar un párrafo para la etiqueta
+        const like = document.createElement('p'); 
+        like.id = 'like'; // Agregar un párrafo para la 
+        like.classList.add('heart-icon');
+        like.addEventListener('click', function() {
+          like.classList.toggle('filled');
+          if (like.classList.contains('filled')) {
+            console.log('El icono está lleno de color');
+            console.log(imageUrl);
+            fetch('/like-shirt?imagen=' + encodeURIComponent(imageUrl))
+            .then(response => response.json())
+            .then(data => {
+
+             })
+    } else {
+            console.log('El icono está vacio');
+            console.log(imageUrl);
+            fetch('/Unlike-shirt?imagen=' + encodeURIComponent(imageUrl))
+            .then(response => response.json())
+            .then(data => {
+
+             })
+    }
+
+        });
+
+       fetch('/producto?imagen=' + encodeURIComponent(imageUrl))
+            .then(response => response.json())
+            .then(data => {
+                label.textContent = '' + data.valor;
+                label2.textContent = 'Precio: ' + data.precio +'$'; // Utiliza el nombre de la imagen obtenido
+            })
+            .catch(error => {
+                console.error('Error al obtener el nombre de la imagen', error);
+                label.textContent = 'Nombre no disponible';
+                label2.textContent = 'Precio no disponible';
+            }); 
+        
+        fetch('/Searchlike-shirt?imagen=' + encodeURIComponent(imageUrl))
+        .then(response => response.json())
+        .then(data => {
+                 console.log(data.valor);
+                 if(data.valor){
+                    like.classList.toggle('filled');
+                 }
+            })
+        
+        imgContainer.appendChild(link);
+        imgContainer.appendChild(like);
+        imgContainer.appendChild(label);
+        imgContainer.appendChild(label2);
+       
+        imageGrid.appendChild(imgContainer);
+    });
+
+    imageContainer.style.display = 'block';
+}
+
+
+
+  </script>
+  
+  <script>
+    // Script para el carrito 
+    document.getElementById("logoutButton").addEventListener("click", function() {
+    // Borrar el elemento del localStorage
+    localStorage.removeItem("listaElementos");
+
+    // Redirigir a la página principal
+    window.location.href = "/";
+});
+
+    var listaElementos = [];
+    var enlace = document.querySelector("a[href='/carrito']");
+    console.log("Enlace: ", enlace);
+    var listaGuardada = localStorage.getItem("listaElementos");
+    if (listaGuardada) {
+      var listaElementos = JSON.parse(listaGuardada);
+      console.log("lista guardada" + listaElementos);
+      var listaJSON = encodeURIComponent(JSON.stringify(listaElementos));
+      var enlace = document.querySelector("a[href='/carrito']");
+      enlace.href = '/carrito?lista='+ listaJSON +'&ID={{ID}}';
+}
+var mensajeExito = document.getElementById("mensaje-exito");
+var mensajeDoble = document.getElementById("mensaje-doble"); 
+  setTimeout(function() {
+    mensajeExito.style.display = "none";
+  mensajeDoble.style.display = "none"; 
+  }, 3000);
+  </script>
+   <script>
+        const slider = document.querySelector('.slider');
+const images = document.querySelectorAll('.resizable-image');
+let currentIndex = 0;
+
+function updateSliderPosition() {
+    const offset = currentIndex * -100;
+    slider.style.transform = `translateX(${offset}%)`;
+}
+
+function prevSlide() {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    updateSliderPosition();
+}
+
+function nextSlide() {
+    currentIndex = (currentIndex + 1) % images.length;
+    updateSliderPosition();
+}
+
+document.querySelector('#prev-button').addEventListener('click', prevSlide);
+document.querySelector('#next-button').addEventListener('click', nextSlide);
+
+    </script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var selects = document.querySelectorAll('.custom-select');
+    
+    selects.forEach(function(select) {
+        var selected = select.querySelector('.select-selected');
+        var options = select.querySelectorAll('.select-option');
+
+        options.forEach(function(option) {
+            option.addEventListener('click', function() {
+                var selectedText = option.textContent;
+                selected.textContent = selectedText;
+                console.log('Opción seleccionada:', selectedText);
+                if (selectedText =='Inicio') {
+        enlac = "https://oscarestudiante2211.pythonanywhere.com//";
+        imageNames = JSON.parse('{{ imagen_urls | tojson | safe }}');
+        imagenes();
+    } else if (selectedText =='Deportivas') {
+         enlac = "https://oscarestudiante2211.pythonanywhere.com/deportiva";
+        imageNames = ['img10.jpg', 'img12.jpg', 'img13.jpg', 'img17.jpg','img18.jpg','img9.jpg'];
+        imagenes();
+    }
+    else if (selectedText =='Casuales') {
+         enlac = "https://oscarestudiante2211.pythonanywhere.com/casual";
+        imageNames = ['img16.jpg', 'img19.jpg', 'img3.jpg', 'img4.jpg','img5.jpg','img7.jpg'];
+        imagenes();
+    }
+            });
+        });
+    });
+});
+
+
+
+</script>
+</body>
+</html>

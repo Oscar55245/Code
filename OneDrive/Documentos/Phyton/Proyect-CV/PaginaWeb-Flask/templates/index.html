@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video_WEB</title>
+    <style> 
+        .container{
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgb(64, 77, 77);
+            color: black;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="container">
+    Contador<h1 name={{name}http://192.168.100.13:443} id="saldo" class="fh5co-heading-colored">{{name}}</h1>
+    <h1>Pon el QR frente a la cámara</h1>
+    <script>
+        const botonGuardar = document.getElementById('boton-guardar');
+        const imagen = document.getElementById('imagen');
+        
+        botonGuardar.addEventListener('click', () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = imagen.width;
+            canvas.height = imagen.height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(imagen, 0, 0);
+            canvas.toBlob((blob) => {
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'imagen.png';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+            });
+        });
+    </script>
+</body>
+</html>

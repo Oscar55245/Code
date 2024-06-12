@@ -1,0 +1,142 @@
+body {
+    font-family: 'Overpass', sans-serif;
+    font-weight: normal;
+    font-size: 100%;
+    color: #e7e9eb;
+    margin: 0;
+    padding: 0;
+    background-color:   #6b6969;
+    position: relative;
+  }
+  
+  .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+
+  }
+  
+  .triangle {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(to bottom right,  #999696, #616060);
+    border: 20px solid #616060;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    box-shadow: 0px 0px 10px #a0a0a0;
+    z-index: -1;
+    
+  }
+  
+  .triangle-1 {
+    top: 10%;
+    left: 10%;
+  }
+  
+  .triangle-2 {
+    top: 35%;
+    left: -10%;
+    transform: translate(0, -50%) rotate(45deg);
+  }
+  
+  .triangle-3 {
+    top: 35%;
+    left: 0%;
+    transform: translate(0, -50%) rotate(45deg);
+  }
+  
+  .triangle-4 {
+    top: 35%;
+    left: 10%;
+    transform: translate(0, -50%) rotate(45deg);
+  }
+  
+  .triangle-5 {
+    top: 35%;
+    left: -20%;
+    transform: translate(0, -50%) rotate(45deg);
+  }
+  
+  .triangle-6 {
+    top: 35%;
+    left: -30%;
+    transform: translate(0, -50%) rotate(45deg);
+  }
+  
+  .triangle-8{
+    top: 35%;
+    left: 25%;
+    transform: translate(0, -50%) rotate(45deg);
+  }
+  .triangle-9{
+    top: 35%;
+    left: 35%;
+    transform: translate(0, -50%) rotate(45deg);
+  }
+  .triangle-10{
+    top: 35%;
+    left: 45%;
+    transform: translate(0, -50%) rotate(45deg);
+  }
+  .login-container {
+    background-color: #383737;
+    box-shadow: 0px 0px 10px rgb(250, 241, 241);
+    padding: 20px;
+    width: 40%;
+    border-radius: 10px;
+    text-align: center;
+    border: 3px solid #616060;
+    position: relative;
+    top: 20%; /* Ajusta este valor según tus necesidades */
+    left: 50%;
+    transform: translate(-50%, 2%);
+}
+  
+  h1 {
+    color: #fcf6f6;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .input-container {
+    margin: 10px 0;
+    text-align: left;
+  }
+  
+  label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 5px;
+    color: #f4f4f4;
+  }
+  
+  input {
+    background-color: #39383a;
+    width: 95%;
+    padding: 10px;
+    border: 3px solid #616060;
+    border-radius: 10px;
+    font-size: 16px;
+    color: #fcf6f6;
+  }
+  
+  button {
+    background-color: #390e61;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 13px;
+    cursor: pointer;
+    border: 2px solid #616060;
+  }
+  
+  button:hover {
+    background-color: #f3abef;
+  }
+  

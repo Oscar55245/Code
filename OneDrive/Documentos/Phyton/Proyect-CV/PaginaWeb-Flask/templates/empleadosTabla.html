@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Empleados</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='fontawesome/css/all.min.css')}}"> <!-- https://fontawesome.com/ -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet" /> <!-- https://fonts.google.com/ -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/tooplate-wave-cafe.css')}}">
+</head>
+<body>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Usuario</th>
+            <th>Puesto</th>
+        </tr>
+        {% for empleado in empleados %}
+        <tr>
+            <td>{{ empleado[0] }}</td>
+            <td>{{ empleado[1] }}</td>
+            <td>{{ empleado[2] }}</td>
+            <td>{{ empleado[3] }}</td>
+            <td>{{ empleado[4] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <li class="tm-page-nav-item">
+        <a href="/Admin" class="tm-page-link"  >
+          <i class="fas fa-glass-martini "></i>
+          <span>Volver</span>
+        </a>
+      </li>
+</body>
+</html>

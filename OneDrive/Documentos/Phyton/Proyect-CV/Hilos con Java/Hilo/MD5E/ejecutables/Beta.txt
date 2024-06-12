@@ -1,0 +1,4 @@
+Hola|3
+Mundo|2
+Loco|2
+=)|3

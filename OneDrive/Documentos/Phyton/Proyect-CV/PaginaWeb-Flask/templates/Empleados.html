@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambio de fondos</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='fontawesome/css/all.min.css')}}"> <!-- https://fontawesome.com/ -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet" /> <!-- https://fonts.google.com/ -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/empleados.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/carrito.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/besticons.css')}}">
+</head>
+<body style="background-image: url('/static/img/fondo.jpg'); background-size: cover; background-repeat: no-repeat; background-attachment: fixed;">
+  <div class="toolbar">
+    <div class="logo">Logo</div>
+    <ul class="menu">
+      
+      <li><a href="/Tabla-Pedidos"><i class="coor-icon fas fa-box"></i> Pedidos</a></li>
+      <li><a href="/Ingresar_playeras" class=""><i class="coor-icon fas fa-tshirt"></i> Playeras</a></li>
+      <li><a href="/"><i class="coor-icon fas fa-sign-out-alt"></i> Salir</a></li>
+    </ul>
+</div>
+  <div class="tm-container">
+    <div class="tm-row">
+          <div id="about" class="tm-page-content">
+            <div class="tm-black-bg tm-mb-20 tm-about-box-1">              
+              <h2 class="tm-text-primary tm-about-header">Popularidad de playeras</h2>
+              <div class="tm-list-item tm-list-item-2">                
+                <img class="tm-list-item-img tm-list-item-img-big" src="data:image/png;base64, {{ file_path }}" alt="Gráfica de pastel">             
+              </div>
+            </div>
+
+          </div>
+          <div style="margin-right: 15%; top:10%">
+            <img style="width: 33%;"  src="https://oscarestudiante2211.pythonanywhere.com/first.png" alt="">
+          </div>
+        </main>
+      </div>    
+    </div>
+
+  </div>
+<style>
+.tm-black-bg.tm-mb-20.tm-about-box-1 {
+  text-align: center;
+  width: 700px;
+  height: 500px;
+  margin: 0 2%;
+}
+
+    </style>
+<script src="{{url_for('static', filename='js/jquery-3.4.1.min.js')}}"></script>
+
+
+  <script>
+
+    function setVideoSize() {
+      const vidWidth = 1920;
+      const vidHeight = 1080;
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
+      const tempVidWidth = windowHeight * vidWidth / vidHeight;
+      const tempVidHeight = windowWidth * vidHeight / vidWidth;
+      const newVidWidth = tempVidWidth > windowWidth ? tempVidWidth : windowWidth;
+      const newVidHeight = tempVidHeight > windowHeight ? tempVidHeight : windowHeight;
+      const tmVideo = $('#tm-video');
+
+      tmVideo.css('width', newVidWidth);
+      tmVideo.css('height', newVidHeight);
+    }
+
+    function openTab(evt, id) {
+      $('.tm-tab-content').hide();
+      $('#' + id).show();
+      $('.tm-tab-link').removeClass('active');
+      $(evt.currentTarget).addClass('active');
+    }    
+
+    function initPage() {
+      let pageId = location.hash;
+
+      if(pageId) {
+        highlightMenu($(`.tm-page-link[href^="${pageId}"]`)); 
+        showPage($(pageId));
+      }
+      else {
+        pageId = $('.tm-page-link.active').attr('href');
+        showPage($(pageId));
+      }
+    }
+
+    function highlightMenu(menuItem) {
+      $('.tm-page-link').removeClass('active');
+      menuItem.addClass('active');
+    }
+
+    function showPage(page) {
+      $('.tm-page-content').hide();
+      page.show();
+    }
+
+    $(document).ready(function(){
+      setVideoSize();
+
+      // Set video background size based on window size
+      let timeout;
+      window.onresize = function(){
+        clearTimeout(timeout);
+        timeout = setTimeout(setVideoSize, 100);
+      };
+
+      // Play/Pause button for video background      
+      const btn = $("#tm-video-control-button");
+
+      btn.on("click", function(e) {
+        const video = document.getElementById("tm-video");
+        $(this).removeClass();
+
+        if (video.paused) {
+          video.play();
+          $(this).addClass("fas fa-pause");
+        } else {
+          video.pause();
+          $(this).addClass("fas fa-play");
+        }
+      });
+    });
+      
+  </script>
+</body>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambio de fondos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambio de fondos</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='fontawesome/css/all.min.css')}}"> <!-- https://fontawesome.com/ -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet" /> <!-- https://fonts.google.com/ -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/empleados.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/carrito.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/animate.css')}}">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="{{url_for('static', filename='css/icomoon.css')}}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.css')}}">
+	<!-- Owl Carousel -->
+	<link rel="stylesheet" href="{{url_for('static', filename='css/owl.carousel.min.css')}}">
+
+	<link rel="stylesheet" href="{{url_for('static', filename='css/owl.theme.default.min.css')}}">
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <style>
+        .custom-input::placeholder {
+            color: #f5f1f1;
+        }
+        .custom-input {
+            background-color: #413d3da8;
+            width: 25%;
+            font-size: 58%;
+            margin-left: 65%;
+            border: 1px solid #ccc;
+            border-radius: 10%;
+            color: #f8f6f6;
+            display: block;
+        }
+        .custom-iz {
+          top: 10%;
+          font-size: 120%;
+          margin-left: 67%;
+          float: left;
+          background-color:  #333;
+          text-align: center;
+        }
+        .custom-S {
+        top: 73%;
+          margin-left: 65%;
+          width: 25%;
+          float: left;
+        }
+        .left {
+            float: left;
+            width: 48%;
+        }
+        .right {
+            float: right;
+            width: 48%;
+        }
+        .a-right {
+          margin-left: 0px;
+        }
+        .tm-black-bg.tm-mb-20.tm-about-box-1 {
+            text-align: center;
+            width: 40%;
+            height: 250%;
+            margin: 0 2%;
+        }
+        #imagenSeleccionada {
+            width: 300px;
+            height: 200px;
+        }
+        .tm-list-item-img {
+            width: auto;
+            height: auto;
+        }
+        .tm-page-link {
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+  }
+  .custom-file-input {
+    display: inline-block;
+    padding: 8px 12px;
+    margin-top: -10%;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .custom-file-input input {
+    position: absolute;
+    top: -10%;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    opacity: 0;
+  }
+
+  .custom-file-input:hover {
+    background-color: #f0f0f0;
+  }
+
+  /* Estilos opcionales para enlaces */
+  .tm-page-link {
+    text-decoration: none;
+    color: #faf7f7;
+  }
+
+
+    </style>
+</head>
+<body style="background-image: url('https://oscarestudiante2211.pythonanywhere.com//fondo.jpg'); background-size: cover; background-repeat: no-repeat; background-attachment: fixed;">
+    <div class="toolbar">
+        <div class="logo">Logo</div>
+        <ul class="menu">
+            <li><a href="/empleados"><i class="coor-icon fas fa-home"></i> Inicio</a></li>
+            <li><a href="/Tabla-Playeras"><i class="coor-icon fas fa-table"></i> Tabla playeras</a></li>
+            <li><a href="/"><i class="coor-icon fas fa-sign-out-alt oor-icon"></i> Salir</a></li>
+        </ul>
+    </div>
+
+    <div class="tm-container">
+        <div class="tm-row">
+        </div>
+        <div id="about" class="tm-page-content">
+            <div class="tm-black-bg tm-mb-20 tm-about-box-1 left">
+                <h2 class="tm-text-primary tm-about-header">Imagen</h2>
+                <div class="tm-list-item tm-list-item-2">
+                    <img id="imagenSeleccionada" src="" alt="Imagen seleccionada" class="tm-list-item-img tm-list-item-img-big">
+                </div>
+                <br>
+                <a class="a-right">
+                  <label class="custom-file-input">
+                    <input class="tm-page-nav-item tm-footer-text" type="file" id="fileInput">
+                    Seleccionar Archivo
+                  </label>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div>
+      <a class="tm-page-link custom-iz">
+        <i></i>
+        <span>Agregar una nueva playera</span>
+      </a>
+      <br>
+      <input minlength="8" maxlength="10" id="nameImagen" class="custom-input" placeholder="Nombre de imagen" required/>
+      <input class="custom-input " minlength="5" maxlength="15" id="locacion" placeholder="Lugar de maquilación" required/>
+      <input class="custom-input" minlength="5" maxlength="20" id="produccion" placeholder="Proceso de producción" required/>
+      <input class="custom-input "  type="number"  id="precio" placeholder="Precio" required/>
+      <br>
+      <form id="formulario">
+      <div class="custom-combobox">
+          <select id="diseno" required>
+              <option value="dise">Diseñador</option>
+              <option value="14">Marcs Jacobs</option>
+              <option value="13">Christian Dior</option>
+              <option value="12">Coco Chanel</option>
+          </select>
+      </div>
+      <div class="custom-combobox">
+          <select id="material" required>
+              <option value="material">Material</option>
+              <option value="11">Nylon</option>
+              <option value="10">Poliéster</option>
+              <option value="9">Algodón</option>
+          </select>
+      </div>
+      <div class="custom-combobox">
+          <select id="tipo" required>
+              <option value="tipo">Tipo</option>
+              <option value="4">Casual</option>
+              <option value="3">Deportivo</option>
+          </select>
+      </div>
+      <div class="custom-combobox">
+          <select id="corte"required>
+              <option value="corte">Corte</option>
+              <option value="8">Entallado</option>
+              <option value="7">Holgado</option>
+              <option value="6">Redondo</option>
+              <option value="5">Recto</option>
+          </select>
+      </div>
+      <a class="tm-page-link custom-S" onclick="subirImagen()">
+          <i class="fas fa-upload tm-page-link-icon"></i>
+          <span>Subir</span>
+      </a>
+    </div>
+    </form>
+    </div>
+
+
+<div id="mensaje-exito" style="display: none;" class="success-message">
+  ¡Playera subida con exito!
+  </div>
+  <div id="mensaje-doble" style="display: none;" class="red-message">
+   ¡Campos vacios!
+  </div>
+<div id="fh5co-main">
+<script src="{{url_for('static', filename='js/jquery-3.4.1.min.js')}}"></script>
+<script>
+
+</script>
+<script>
+const fileInput = document.getElementById('fileInput');
+const imagenSeleccionada = document.getElementById('imagenSeleccionada');
+fileInput.addEventListener('change', function () {
+    if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        const imageUrl = URL.createObjectURL(file);
+        imagenSeleccionada.src = imageUrl;
+      }else {
+      imagenSeleccionada.src='';
+    }
+});
+document.getElementById('nameImagen').addEventListener('input', function() {
+    this.value = this.value.replace(/[^a-zA-Z0-9]+/, ''); // Elimina los caracteres no permitidos
+});
+document.getElementById('precio').addEventListener('input', function() {
+    this.value = this.value.replace(/[^0-9]+/, ''); // Elimina los caracteres no permitidos
+});
+  function subirImagen() {
+    const fileInput = document.getElementById('fileInput');
+
+    const formData = new FormData();
+    const nombreImagenInput = document.getElementById('nameImagen');
+    const nombreImagen = nombreImagenInput.value;
+    console.log(nombreImagen);
+    const corte = document.getElementById("corte").value;
+    const material = document.getElementById('material').value;
+    const tipo = document.getElementById('tipo').value;
+    const diseno = document.getElementById('diseno').value;
+    const produccion = document.getElementById('produccion').value;
+    const locacion = document.getElementById('locacion').value;
+    const precio = document.getElementById('precio').value;
+    var selectElement = document.getElementById("diseno");
+    const imagenSeleccionada = document.getElementById('imagenSeleccionada');
+    const file = fileInput.files[0];
+    if (file && nombreImagen!=""&& corte!="corte"&& material!="material"&& tipo!="tipo"
+    && diseno!="dise"&& produccion!=""&& locacion!=""&& precio!="") {
+        var selectedIndex = selectElement.selectedIndex;
+        var selectedText = selectElement.options[selectedIndex].text;
+        console.log(selectedText);
+        console.log(produccion);
+        console.log(locacion);
+        console.log(precio);
+
+        console.log(nombreImagen.value);
+        formData.append('nombreImagen', nombreImagen);
+        formData.append('corte',corte);
+        formData.append('material',material);
+        formData.append('tipo',tipo);
+        formData.append('imagen', file);
+        formData.append('diseno',diseno);
+        formData.append('produccion',produccion);
+        formData.append('locacion',locacion);
+        formData.append('precio',precio);
+        formData.append('nameD',selectedText);
+        fetch('/subir_imagen', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            imagenSeleccionada.src = data.url;
+        });
+        mensajeExito = document.getElementById("mensaje-exito");
+        mensajeExito.style.display="block";
+        setTimeout(function() {
+          mensajeExito.style.display = "none";
+      }, 3000);
+ window.location.reload(true);
+    }else{
+      var mensajeDoble = document.getElementById("mensaje-doble");
+      mensajeDoble.style.display = "block";
+      setTimeout(function() {
+        mensajeDoble.style.display = "none";
+      }, 3000);
+    }
+}
+</script>
+
+<script>
+function mostrarImagen() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.id = 'miInput';
+    input.onchange = e => {
+      const archivo = e.target.files[0];
+      const lector = new FileReader();
+      lector.readAsDataURL(archivo);
+      lector.onload = le => {
+        const imagenSeleccionada = document.getElementById('imagenSeleccionada');
+        imagenSeleccionada.src = le.target.result;
+      };
+    }
+    input.click();
+  }
+</script>
+  <script>
+
+    function setVideoSize() {
+      const vidWidth = 1920;
+      const vidHeight = 1080;
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
+      const tempVidWidth = windowHeight * vidWidth / vidHeight;
+      const tempVidHeight = windowWidth * vidHeight / vidWidth;
+      const newVidWidth = tempVidWidth > windowWidth ? tempVidWidth : windowWidth;
+      const newVidHeight = tempVidHeight > windowHeight ? tempVidHeight : windowHeight;
+      const tmVideo = $('#tm-video');
+
+      tmVideo.css('width', newVidWidth);
+      tmVideo.css('height', newVidHeight);
+    }
+
+    function openTab(evt, id) {
+      $('.tm-tab-content').hide();
+      $('#' + id).show();
+      $('.tm-tab-link').removeClass('active');
+      $(evt.currentTarget).addClass('active');
+    }
+
+    function initPage() {
+      let pageId = location.hash;
+
+      if(pageId) {
+        highlightMenu($(`.tm-page-link[href^="${pageId}"]`));
+        showPage($(pageId));
+      }
+      else {
+        pageId = $('.tm-page-link.active').attr('href');
+        showPage($(pageId));
+      }
+    }
+
+    function highlightMenu(menuItem) {
+      $('.tm-page-link').removeClass('active');
+      menuItem.addClass('active');
+    }
+
+    function showPage(page) {
+      $('.tm-page-content').hide();
+      page.show();
+    }
+
+    $(document).ready(function(){
+
+      setVideoSize();
+      let timeout;
+      window.onresize = function(){
+        clearTimeout(timeout);
+        timeout = setTimeout(setVideoSize, 100);
+      };
+
+      const btn = $("#tm-video-control-button");
+
+      btn.on("click", function(e) {
+        const video = document.getElementById("tm-video");
+        $(this).removeClass();
+
+        if (video.paused) {
+          video.play();
+          $(this).addClass("fas fa-pause");
+        } else {
+          video.pause();
+          $(this).addClass("fas fa-play");
+        }
+      });
+    });
+
+  </script>
+</body>
+</html>

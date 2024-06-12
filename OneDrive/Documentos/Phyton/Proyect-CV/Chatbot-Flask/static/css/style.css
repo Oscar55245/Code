@@ -1,0 +1,59 @@
+    /* Estilos CSS para el chat */
+    .chat-container {
+      max-width: 400px;
+      margin: 50px auto;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .chat-box {
+      height: 300px;
+      overflow-y: scroll;
+      padding: 10px;
+      background-color: #f5f5f5;
+    }
+
+    .chat-message {
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 10px;
+    }
+    .chat-message2 {
+      top: 30%;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 10px;
+    } 
+
+    .user-message {
+      background-color: #dcf8c6;
+      align-self: flex-end;
+    }
+
+    .bot-message {
+      background-color: #9fb6f7;
+    }
+
+    .input-box {
+      width: calc(100% - 80px);
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      margin: 0 10px;
+    }
+
+    .send-button {
+      width: 60px;
+      padding: 10px;
+      right: 55%;
+      border: none;
+      border-radius: 5px;
+      background-color: #007bff;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .send-button:hover {
+      background-color: #233255;
+    }

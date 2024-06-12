@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/registro.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>Registro</title>
+</head>
+<style>
+            body {
+            font-family: 'Arial', sans-serif;
+        }
+        .input-container {
+            margin-bottom: 15px;
+        }
+        button {
+            background-color: #390e61;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 13px;
+            cursor: pointer;
+            border: 2px solid #616060;
+        }
+        button:hover {
+            background-color: #f3abef;
+        }
+        .success-message {
+        background-color: #4CAF50; /* Color de fondo verde */
+color: white; /* Color de texto blanco */
+text-align: center; /* Texto centrado */
+padding: 10px; /* Espaciado interno */
+position: fixed; /* Posición fija */
+top: 0; /* Colocar en la parte superior */
+left: 0; /* Colocar en la parte izquierda */
+right: 0; /* Colocar en la parte derecha */
+width: 100%; /* Ancho del 100% para abarcar toda la página */
+z-index: 1000; /* Z-index alto para estar encima de otros elementos */
+}
+.red-message {
+    background-color: #f10707; /* Color de fondo verde */
+color: white; /* Color de texto blanco */
+text-align: center; /* Texto centrado */
+padding: 14px; /* Espaciado interno */
+position: fixed; /* Posición fija */
+top: 0; /* Colocar en la parte superior */
+left: 0; /* Colocar en la parte izquierda */
+right: 0; /* Colocar en la parte derecha */
+width: 100%; /* Ancho del 100% para abarcar toda la página */
+z-index: 1000; /* Z-index alto para estar encima de otros elementos */
+}
+.floating-icon {
+    width: 200px;
+    height: 50px;
+    background-color: #363738; /* Color de fondo del icono */
+    color: rgb(242, 250, 250); /* Color del icono */
+    border-radius: 30%; /* Hace que el icono sea redondo */
+    text-align: center;
+    line-height: 50px;
+    position: fixed; /* Fija la posición del icono */
+    top: 5%; /* Posiciona en la mitad de la pantalla verticalmente */
+    right: 20px; /* Distancia desde la izquierda */
+    margin-top: -15px; /* Centra verticalmente el icono */
+    cursor: pointer;
+    z-index: 999; /* Asegura que el icono esté en la parte superior */
+}
+</style>
+<body>
+    <div class="login-container">
+        <h1>Registro</h1>
+        <form onsubmit="return validatePasswords()">
+            <div class="input-container">
+                <label minlength="5"  for="username">Usuario</label>
+                <input type="text" id="usuario" maxlength="8" name="usuario" required>
+            </div>
+            <div class="input-container">
+                <label minlength="4" for="username">Nombre </label>
+                <input type="text"  id="nombre" maxlength="15" name="nombre"  required>
+            </div>
+            <div class="input-container">
+                <label for="username">Correo </label>
+                <input type="text" minlength="8"  id="correo" maxlength="50"  name="correo" required>
+            </div>
+            <div class="input-container">
+                <label for="password">Contraseña</label>
+                <input  minlength="6" maxlength="11"  type="password" id="password" name="password" required>
+            </div>
+            <div class="input-container">
+                <label for="password"> Confirma contraseña</label>
+                <input minlength="6" maxlength="11"  type="password" id="conPassword" name="conPassword" required>
+            </div>
+            <button type="submit" formaction="/insertar-cliente"> <i class="fas fa-user-plus"></i> Registrar</button>
+        </form>
+    </div>
+    <div id="mensaje-doble" style="display: none;" class="red-message">
+        ¡Usuario o correo no validos!
+        {% if usuario_existente ==true %}
+            <script>
+                var mensajeDoble = document.getElementById("mensaje-doble"); 
+                mensajeDoble.style.display = "block";
+                setTimeout(function() {
+                    mensajeDoble.style.display = "none";
+                 }, 3000);
+            </script>
+        {% endif %}
+    </div>
+    <div id="mensaje-exito" style="display: none;" class="success-message">
+        ¡Registro exitoso!
+        {% if usuario_existente ==false%}
+            <script>
+                var mensajeDoble = document.getElementById("mensaje-exito"); 
+                mensajeDoble.style.display = "block";
+                setTimeout(function() {
+                    mensajeDoble.style.display = "none";
+                 }, 3000);
+            </script>
+        {% endif %}
+    </div>
+    <div class="triangle triangle-5"></div>
+    <div class="triangle triangle-6"></div>
+    <div class="triangle triangle-2"></div>
+    <div class="triangle triangle-3"></div>
+        <div class="triangle triangle-4"></div>
+        <div class="triangle triangle-8"></div>
+        <div class="triangle triangle-9"></div>
+        <div class="triangle triangle-10"></div>
+        <a href="/" id="volver">
+            <div class="floating-icon fas fa-arrow-left"> Iniciar</div>
+          </a>
+</body>
+<script>
+    function validatePasswords() {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("conPassword").value;
+
+        if (password !== confirmPassword) {
+            alert("Las contraseñas no coinciden");
+            return false; // Evita que el formulario se envíe
+        }
+
+        return true; // Permite que el formulario se envíe si las contraseñas coinciden
+    }
+
+    document.getElementById('nombre').addEventListener('input', function() {
+    this.value = this.value.replace(/[^a-zA-Z]+/, ''); // Elimina los caracteres no permitidos
+});
+
+</script>
+</html>

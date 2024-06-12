@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Administracion Pedidos</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='fontawesome/css/all.min.css')}}"> <!-- https://fontawesome.com/ -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet" /> <!-- https://fonts.google.com/ -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/tooplate-wave-cafe.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/carrito.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/empleadoT.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/besticons.css')}}">
+</head>
+<STyle>
+    .select{
+        position: relative;
+    display: inline-block;
+    padding: 8px 12px;
+    height: 50px;
+    border: 1px solid #363738;
+    border-radius: 5px;
+    background-color: #363738;
+    color: white;
+    cursor: pointer;
+    /* Agrega otros estilos según sea necesario */
+    }
+    .ver-detalle{
+        position: relative;
+    display: inline-block;
+    padding: 8px 12px;
+    height: 50px;
+    border: 1px solid #363738;
+    border-radius: 5px;
+    background-color: #363738;
+    color: white;
+    cursor: pointer;
+    /* Agrega otros estilos según sea necesario */
+    }
+    .select option {
+        background-color: #e5ebf1; /* Cambia el color de fondo */
+      color: rgb(17, 16, 16); /* Cambia el color del texto */
+      font-size: 16px;
+}
+.enviar{
+    margin-top:1%;
+    border: 1px solid #020202;
+    background-color:  #fff;
+    height: 150px;
+    width: 100%;
+    align-items: center;
+    display: none;
+}
+.barra{
+    border: 1px solid #0e0d0d;
+    background-color: #fff;
+    height: 150px;
+    width: 100%;
+    align-items: center;
+}
+.buttonEnviar{
+    margin-top: 50%;
+    position: relative;
+    display: inline-block;
+    padding: 8px 12px;
+    height: 50px;
+    width: 100px;
+    border: 1px solid #363738;
+    border-radius: 5px;
+    background-color: #363738;
+    color: white;
+    cursor: pointer;
+    right: 50%;
+}
+</STyle>
+<body style="background-image: url('/static/img/fondo.jpg'); background-size: cover; background-repeat: no-repeat; background-attachment: fixed;">
+    <div class="toolbar">
+        <div class="logo">Logo</div>
+        <ul class="menu">
+            <li><a href="/empleado"><i class="coor-icon fas fa-home"></i> Inicio</a></li>
+            <li><a href="/"><i class="coor-icon fas fa-sign-out-alt oor-icon"></i> Salir</a></li>
+        </ul>
+    </div>
+    <div class="barra">
+        <h2 style="margin-top: 2%; color: #050505;">Buscar por ID</h2>
+        <input id="Buscar" type="text" onkeypress="handleKeyPress(event)"> <button onclick="enviarDatos()"><i class="coor-icon fas fa-search "></i></button>
+        Todos <button onclick="allData()"> <i class=" coor-icon fa fa-globe" aria-hidden="true"></i></button>
+    </div>
+    <table style="margin-top: 0;">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ID USUARIO</th>
+                <th>Correo</th>
+                <th>Domicilio</th>
+                <th>Postal</th>
+                <th>Total</th>
+                <th>Estatus</th>
+                <th>Pedido</th>
+                <th>Concluir</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if tabla is defined and not tabla.empty %}
+                {% for index, row in tabla.iterrows() %}
+                    <tr>
+                        <td>{{ row['ID'] }}</td>
+                        <td>{{ row['usuario'] }}</td>
+                        <td>{{ row['email'] }}</td>
+                        <td>{{ row['domicilio'] }}</td>
+                        <td> {{ row['postal'] }}</td>
+                        <td>$ {{ row['total'] }}</td>
+                        <td>
+                            {% if row['estatus'] == 'COMPLETADO' %}
+                            {{ row['estatus'] }} <i style="color: rgb(25, 165, 67);" class="fas fa-check-circle"></i> <!-- Aquí el icono de completado -->
+                            {% elif row['estatus'] == 'PENDIENTE' %}
+                                {{ row['estatus'] }}   <i style="color: rgb(248, 121, 31);" class="fas fa-clock"></i>
+                            {% elif row['estatus'] == 'ENVIADO' %}
+                                {{ row['estatus'] }}   <i style="color: rgb(26, 12, 100);" class="fa fa-paper-plane" aria-hidden="true"></i> <!-- Muestra el texto del estatus si no es "COMPLETADO" -->
+                            {% endif %}
+                        </td>
+                        <td><button class="ver-detalle" data-pedido="{{ row['pedido'] }}"><i class="fa fa-info-circle" aria-hidden="true"></i> Detalles</button></td>
+                        <td>
+                             <select class="select" name="selectSend" id="selectSend" onchange="enviar(this)">
+                                 <option value="FASE">FASE</option>
+                                 <option value="COMPLETADO">COMPLETADO</option>
+                                 {% if row['estatus'] == 'PENDIENTE' %}
+                                      <option value="ENVIADO">ENVIAR</option>
+                                 {% endif %}
+                             </select>
+                        </td>
+                        
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="5">No data available</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table> 
+    <div id="enviarDiv" class="container enviar">
+        <div class="row">
+            <h2>ID</h2>
+            <div class="col">
+                  <input id="idEnvio" type="text" class="form-control">
+            </div>
+        </div>
+        <div class="row">
+            <h2>Código de envío</h2>
+            <div class="col">
+                  <input id="codigoEnvio" type="text" class="form-control">
+            </div>
+        </div>
+        <div class="row">
+            <h2>Nombre</h2>
+            <div class="col">
+                  <input id="inputNombre" type="text" class="form-control">
+            </div>
+        </div>
+        <div class="row">
+            <h2>Correo</h2>
+            <div class="col">
+                  <input id="correo" type="text" class="form-control">
+            </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <button onclick="EnviarS()" class="btn btn-primary buttonEnviar">Enviar <i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+          </div>
+        </div>
+      </div>
+      
+    <div id="myModal">
+        <div id="modalContent">
+          <h2>Detalles del Pedido</h2><span class="close" onchange="closeModal()">&times;</span>
+          <table id="detallePedidoTable">
+            <!-- Aquí se mostrará la tabla de detalles -->
+          </table>
+        </div>
+      </div>
+</body>
+<style>
+.realizar-button {
+  background-color: rgb(108, 238, 76);
+  color: rgb(7, 7, 7);
+  border: 2px solid rgb(7, 7, 7); /* Ajusté el grosor del borde */
+  padding: 10px 15px; /* Ajusté el espaciado interno */
+  cursor: pointer;
+  font-size: 16px; /* Puedes ajustar el tamaño de la fuente según tus preferencias */
+  border-radius: 5px; /* Añadí esquinas redondeadas */
+}
+
+/* Si deseas agregar estilos adicionales para cuando el botón está en diferentes estados (hover, activo, etc.), puedes hacerlo así: */
+
+.realizar-button:hover {
+  background-color: rgb(92, 200, 63); /* Cambia el color al pasar el ratón sobre el botón */
+}
+
+.realizar-button:active {
+  background-color: rgb(76, 171, 54); /* Cambia el color cuando el botón está presionado */
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+#myModal {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#modalContent {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 600px;
+  text-align: center;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+</style>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    function EnviarS(){
+    var input = document.getElementById('idEnvio');
+    var codigo = document.getElementById('codigoEnvio');
+    var inputNombre = document.getElementById('inputNombre');
+    var inputEmail = document.getElementById('correo');
+    enviarDatosAlServidor(input.value,inputNombre.value,inputEmail.value,codigo.value);
+    }
+function enviar(selectElement) {
+    var fila = selectElement.parentNode.parentNode; // Navegamos hacia arriba en el árbol DOM
+    var idFila = fila.cells[0].innerText;
+    var nombre = fila.cells[1].innerText;
+    var email = fila.cells[2].innerText;
+    if (selectElement.value === 'ENVIADO') {
+        console.log('ID de la fila: ' + idFila);
+        enviarDiv.style.display = 'flex';
+        var input = document.getElementById('idEnvio');
+        var inputNombre = document.getElementById('inputNombre');
+        var inputEmail = document.getElementById('correo');
+        input.value = idFila;
+        inputNombre.value=nombre;
+        inputEmail.value=email;
+
+    }else {
+            enviarDiv.style.display = 'none';
+        }
+}
+</script>
+<script>
+    function handleKeyPress(event) {
+        if (event.keyCode === 13) { // Verificar si la tecla presionada es "Enter"
+            event.preventDefault(); // Evitar que se envíe el formulario (si hay uno)
+            enviarDatos(); // Llamar a la función enviarDatos()
+        }
+    }
+    function allData(){
+        window.location.href = '/Tabla-Pedidos'
+    }
+function enviarDatos() {
+    var texto = document.getElementById("Buscar").value;
+    window.location.href = '/buscar-pedido?ID=' + encodeURIComponent(texto);
+}
+
+</script>
+<script>
+    $(document).ready(function () {
+        $(".ver-detalle").click(function () {
+
+            var pedidoString = $(this).data("pedido");
+            showDetailsModal(pedidoString);
+
+        });
+    });
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.realizar-button').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                activar(btn);
+            });
+        });
+    });
+    function activar(button) {
+        var id_pedido = button.getAttribute('data-ped');
+        console.log("Id pedido "+id_pedido)
+        enviarDatosAlServidor(id_pedido,email,name);
+    }
+    function enviarDatosAlServidor(id_pedido,email,name,codigo) {
+        console.log(id_pedido,email,name);
+        fetch('/actualizar-pedido', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+            'ID': id_pedido,
+            'name': name,
+            'email': email,
+            'codigo': codigo
+        }),
+    }).then(response => {
+        // Manejar la respuesta del servidor si es necesario
+        console.log(response);
+        // Redirigir a la misma página
+        window.location.reload(true); // Esto recargará la página
+    }).catch(error => {
+        console.error('Error al enviar datos:', error);
+    });
+}
+
+    function showDetailsModal(pedidoString) {
+        var detalles = [];
+      var items = pedidoString.split("|");
+  
+      for (var i = 0; i < items.length; i++) {
+        var detalle = items[i].split(",");
+        detalles.push(detalle);
+      }
+  
+      // Crear la tabla de detalles
+      var tablaDetalles = '<tr><th>Playera</th><th>Precio</th><th>Cantidad</th></tr>';
+      
+      for (var i = 0; i < detalles.length; i++) {
+        tablaDetalles += '<tr><td>' + detalles[i][0] + '</td><td>' + detalles[i][1] + '</td><td>' + detalles[i][2] + '</td></tr>';
+      }
+  
+      $("#detallePedidoTable").html(tablaDetalles);
+      $("#myModal").css("display", "flex");
+    }
+  
+    function closeModal() {
+      $("#myModal").css("display", "none");
+    }
+</script>
+
+</html>

@@ -1,0 +1,57 @@
+[RESERVACION{Folio=68, cliente=888, Nombre=BHBH, estatus=CONCLUIDO, ocupantes=5, Extras=-SERVICIO HABITACION, FechaE=2022-06-23, FechaS=2022-06-17, habitacion=12, Costo=9569}, RESERVACION{Folio=69, cliente=55, Nombre=BHBH, estatus=CONCLUIDO, ocupantes=4, Extras=-SERVICIO HABITACION, FechaE=2022-06-17, FechaS=2022-06-17, habitacion=37, Costo=-2500}, RESERVACION{Folio=70, cliente=5, Nombre=HFTH, estatus=CONCLUIDO, ocupantes=4, Extras=-SERVICIO HABITACION, FechaE=2022-06-18, FechaS=2022-06-18, habitacion=15, Costo=7431}, RESERVACION{Folio=71, cliente=848, Nombre=JNHJBHB, estatus=CONCLUIDO, ocupantes=4, Extras=-SERVICIO HABITACION-BEBIDA, FechaE=2022-06-24, FechaS=2022-06-22, habitacion=12, Costo=10069}, RESERVACION{Folio=72, cliente=4, Nombre=JJHJH, estatus=CONCLUIDO, ocupantes=6, Extras=-SERVICIO HABITACION, FechaE=2022-06-28, FechaS=2022-06-24, habitacion=12, Costo=9569}, RESERVACION{Folio=73, cliente=55, Nombre=GFGF, estatus=CONCLUIDO, ocupantes=5, Extras=-BEBIDA-SERVICIO HABITACION-TOALLA, FechaE=2023-05-31, FechaS=2022-06-30, habitacion=12, Costo=10400}, RESERVACION{Folio=74, cliente=444, Nombre=BNBN, estatus=CONCLUIDO, ocupantes=3, Extras=-SERVICIO HABITACION-BEBIDA, FechaE=2022-06-30, FechaS=2022-06-29, habitacion=13, Costo=10000}, RESERVACION{Folio=76, cliente=77, Nombre=OSCAR, estatus=CONCLUIDO, ocupantes=6, Extras=-SERVICIO HABITACION-BEBIDA, FechaE=2022-08-19, FechaS=2022-08-12, habitacion=37, Costo=-2069}, RESERVACION{Folio=77, cliente=77, Nombre=KNK, estatus=CONCLUIDO, ocupantes=2, Extras=-BEBIDA, FechaE=2022-08-12, FechaS=2022-08-10, habitacion=12, Costo=569}, RESERVACION{Folio=78, cliente=454, Nombre=MKKN, estatus=CONCLUIDO, ocupantes=3, Extras=-SERVICIO HABITACION, FechaE=2022-08-17, FechaS=2022-08-11, habitacion=12, Costo=1000}, RESERVACION{Folio=79, cliente=88, Nombre=MARDUK, estatus=CONCLUIDO, ocupantes=6, Extras=-SERVICIO HABITACION-BEBIDA, FechaE=2022-08-17, FechaS=2022-08-12, habitacion=12, Costo=1500}, RESERVACION{Folio=80, cliente=444, Nombre=MARIANO, estatus=ACTIVO, ocupantes=5, Extras=nullNOTA : 
+ACTIVIDAD   NO. PERSONAS   |    Noches   |  COSTO
+
+Alberca -------------0--------------------0----------------$0
+Salon de fiesta -----0--------------------0----------------$0
+Cancha --------------0--------------------0----------------$0
+GYM -----------------0--------------------0----------------$0
+Spa -----------------0--------------------0----------------$0
+bebidas---1---- $300
+
+
+, FechaE=2022-08-26, FechaS=2022-08-13, habitacion=12, Costo=9069}, RESERVACION{Folio=82, cliente=1, Nombre=NJNJB, estatus=CONCLUIDO, ocupantes=5, Extras=nullNACHOS---2---- $100
+
+
+NACHOS---2---- $100
+
+BEBIDAS---1---- $200
+
+
+NACHOS---2---- $100
+
+BEBIDAS---1---- $200
+
+ZAPATOS---1---- $500
+
+
+, FechaE=2022-08-12, FechaS=2022-08-12, habitacion=15, Costo=16100}, RESERVACION{Folio=83, cliente=88, Nombre=MARIANO, estatus=CONCLUIDO, ocupantes=3, Extras=nullBEBIDAS---4---- $400
+
+
+, FechaE=2022-08-18, FechaS=2022-08-18, habitacion=13, Costo=8400}, RESERVACION{Folio=84, cliente=1511, Nombre=JORGUE, estatus=ACTIVO, ocupantes=5, Extras=nullbebidas---1---- $100
+
+
+NOTA : 
+ACTIVIDAD   NO. PERSONAS   |    Noches   |  COSTO
+
+Alberca -------------1--------------------1----------------$150
+Salon de fiesta -----0--------------------0----------------$0
+Cancha --------------0--------------------0----------------$0
+GYM -----------------0--------------------0----------------$0
+Spa -----------------0--------------------0----------------$0
+bebidas---1---- $100
+
+conga---1---- $300
+
+
+, FechaE=2022-08-25, FechaS=2022-08-18, habitacion=15, Costo=15550}, RESERVACION{Folio=85, cliente=45445, Nombre=OSCAR, estatus=ACTIVO, ocupantes=4, Extras=nulldesayuno---1---- $500
+
+
+NOTA : 
+ACTIVIDAD   NO. PERSONAS   |    Noches   |  COSTO
+
+Alberca -------------1--------------------1----------------$150
+Salon de fiesta -----0--------------------0----------------$0
+Cancha --------------1--------------------1----------------$300
+GYM -----------------1--------------------1----------------$100
+Spa -----------------0--------------------0----------------$0
+, FechaE=2022-08-20, FechaS=2022-08-15, habitacion=40, Costo=3550}, RESERVACION{Folio=86, cliente=1, Nombre=Alejandro, estatus=RESERVADO, ocupantes=8, Extras=, FechaE=2022-08-19, FechaS=2022-08-18, habitacion=43, Costo=3000}, RESERVACION{Folio=87, cliente=3, Nombre=MARIANA, estatus=ACTIVO, ocupantes=3, Extras=, FechaE=2022-09-30, FechaS=2022-09-29, habitacion=13, Costo=8000}, RESERVACION{Folio=88, cliente=6, Nombre=JUAN, estatus=RESERVADO, ocupantes=2, Extras=BEBIDAS, FechaE=2022-09-30, FechaS=2022-09-22, habitacion=28, Costo=15000}, RESERVACION{Folio=89, cliente=3, Nombre=MARIANA, estatus=ACTIVO, ocupantes=2, Extras=, FechaE=2022-09-30, FechaS=2022-09-29, habitacion=13, Costo=8000}, RESERVACION{Folio=90, cliente=9, Nombre=CUTBERTO, estatus=RESERVADO, ocupantes=2, Extras=BEBIDAS, FechaE=2022-10-08, FechaS=2022-10-05, habitacion=28, Costo=15000}, RESERVACION{Folio=91, cliente=10, Nombre=KIKO, estatus=RESERVADO, ocupantes=2, Extras=BEBIDAS, FechaE=2022-10-22, FechaS=2022-10-19, habitacion=28, Costo=15000}]
